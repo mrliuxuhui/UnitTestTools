@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+IDEA --> EVENT_HUB : 工程打开事件
+EVENT_HUB --> ProjectUttInitializer : call projectOpened
+ProjectUttInitializer --> ProjectInfoService : call collecting project info
+activate ProjectInfoService
+ProjectInfoService --> ProjectUttInitializer
+
+ProjectUttInitializer --> ProjectInfoService : check dependencies
+ProjectInfoService --> ProjectUttInitializer
+
+ProjectUttInitializer --> EVENT_HUB : publish utt initialized event
+
+@enduml

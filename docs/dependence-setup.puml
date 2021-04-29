@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+ProjectUttInitializer --> ProjectInfoService : check dependencies
+ProjectInfoService --> DependenceBuilder : call setupDependenciesIfNecessary
+DependenceBuilder --> ConcreteDependenceBuilder : call getDependenceList
+DependenceBuilder --> UttDependenceManager : lookup dependencies
+UttDependenceManager --> UttDependenceManager : setupDependenceIfNecessary
+UttDependenceManager --> DependenceBuilder
+DependenceBuilder --> ProjectInfoService
+ProjectInfoService --> ProjectUttInitializer
+
+@enduml

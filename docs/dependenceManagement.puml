@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface DependenceBuilder {
++ match(projectInfo:ProjectInfo)
++ getDependenceList()
+}
+interface DependenceManager {
++ match(projectInfo:ProjectInfo)
++ setupIfNecessary(dependence:Dependence)
+}
+
+
+class ProjectInfo {
+- sdk
+- facet
+- buildTool
+}
+class ModuleInfo {
+- sdk
+- facet
+- buildTool
+}
+class Dependence {
+- groupId
+- artifactId
+- version
+}
+class ProjectInfoService {
++ collectProjectInfo()
++ initialize()
++ setupDependenceIfNecessary()
+
+}
+
+class SpringWebDependenceBuilder {}
+class MavenDependenceManager {}
+class GradleDependenceManager {}
+
+ProjectInfoService o-- DependenceBuilder
+ProjectInfoService o-- DependenceManager
+ProjectInfoService *-- ProjectInfo
+ProjectInfoService o-- ModuleInfo
+
+SpringWebDependenceBuilder ..|> DependenceBuilder
+MavenDependenceManager ..|> DependenceManager
+GradleDependenceManager ..|> DependenceManager
+DependenceBuilder o-- Dependence
+
+@enduml

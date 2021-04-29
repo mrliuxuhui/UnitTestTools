@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+IDEA --> UTTPlugin : startup
+UTTPlugin --> ApplicationInitializer : collect all endpoints implementations
+ApplicationInitializer --> ApplicationService : create endpoint object
+ApplicationService --> ApplicationService : save the instances
+ApplicationService --> UTTPlugin
+
+@enduml

@@ -1,0 +1,53 @@
+<idea-plugin>
+    <id>com.flyingwillow.utt</id>
+    <name>Unit Test Tools</name>
+    <version>1.0</version>
+    <vendor email="mrliuxuhui@gmail.com" url="">FlyingWillow</vendor>
+
+    <description><![CDATA[
+      An NB tool for writting unit test! An NB tool for writting unit test!
+    ]]></description>
+
+    <change-notes><![CDATA[
+      version 1.0
+    ]]></change-notes>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="193.0"/>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensionPoints>
+        <extensionPoint name="DependenceBuilder" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder" />
+        <extensionPoint name="DependenceManager" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceManager" />
+        <extensionPoint name="TestClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
+        <extensionPoint name="TestMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+<!--        <postStartupActivity implementation="com.flyingwillow.utt.listeners.ApplicationInitializer" />-->
+    </extensions>
+
+    <extensions defaultExtensionNs="com.flyingwillow.utt">
+        <DependenceBuilder id="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
+        <DependenceManager implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" id="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <group id="utt.actionGroup" class="com.flyingwillow.utt.action.UttActionGroup" text="Unit Test Tools" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+            <action id="utt.action.create" class="com.flyingwillow.utt.action.UttGenerateAction" text="generate ut" description="创建单元测试">
+            </action>
+        </group>
+    </actions>
+
+    <projectListeners>
+        <listener class="com.flyingwillow.utt.listeners.ProjectUttInitializer" topic="com.intellij.openapi.project.ProjectManagerListener" />
+    </projectListeners>
+
+</idea-plugin>
