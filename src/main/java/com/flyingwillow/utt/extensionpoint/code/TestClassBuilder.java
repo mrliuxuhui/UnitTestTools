@@ -6,7 +6,7 @@ import com.intellij.openapi.extensions.ExtensionPointName;
 
 public interface TestClassBuilder {
 
-    ExtensionPointName<DependenceBuilder> EXTENSION_POINT_NAME = ExtensionPointName.create("TestClassBuilder");
+    ExtensionPointName<DependenceBuilder> EXTENSION_POINT_NAME = ExtensionPointName.create("testClassBuilder");
 
     boolean match(ProjectInfo projectInfo);
 

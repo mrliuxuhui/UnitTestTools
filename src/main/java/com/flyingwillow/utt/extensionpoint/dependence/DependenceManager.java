@@ -1,8 +1,10 @@
 package com.flyingwillow.utt.extensionpoint.dependence;
 
 import com.flyingwillow.utt.domain.Dependence;
+import com.flyingwillow.utt.domain.MissMatchDependence;
 import com.flyingwillow.utt.domain.ProjectInfo;
 import com.intellij.openapi.extensions.ExtensionPointName;
+import com.intellij.openapi.project.Project;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * */
 public interface DependenceManager {
 
-    ExtensionPointName<DependenceBuilder> EXTENSION_POINT_NAME = ExtensionPointName.create("DependenceManager");
+    ExtensionPointName<DependenceManager> EXTENSION_POINT_NAME = ExtensionPointName.create("com.flyingwillow.utt.dependenceManager");
 
     /**
      * */
@@ -21,5 +23,7 @@ public interface DependenceManager {
     /**
      *
      * */
-    void setupIfNecessary(List<Dependence> list);
+    void setupIfNecessary(List<Dependence> list, Project project);
+
+    List<MissMatchDependence> checkDependencies(List<Dependence> list, Project project);
 }

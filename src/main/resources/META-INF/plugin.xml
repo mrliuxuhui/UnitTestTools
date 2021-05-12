@@ -20,10 +20,10 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensionPoints>
-        <extensionPoint name="DependenceBuilder" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder" />
-        <extensionPoint name="DependenceManager" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceManager" />
-        <extensionPoint name="TestClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
-        <extensionPoint name="TestMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
+        <extensionPoint name="dependenceBuilder" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder" />
+        <extensionPoint name="dependenceManager" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceManager" />
+        <extensionPoint name="testClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
+        <extensionPoint name="testMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -32,8 +32,8 @@
     </extensions>
 
     <extensions defaultExtensionNs="com.flyingwillow.utt">
-        <DependenceBuilder id="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
-        <DependenceManager implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" id="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
+        <dependenceBuilder  implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
+        <dependenceManager  implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
     </extensions>
 
     <actions>
