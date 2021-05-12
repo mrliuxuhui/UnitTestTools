@@ -15,6 +15,7 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.XmlElementFactory;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class MavenDependenceManager implements DependenceManager {
         XmlFile pom = getPomFile(project);
         XmlElementFactory factory = getXmlElementFactory();
         XmlTag dependencies = pom.getDocument().getRootTag().findFirstSubTag("dependencies");
-        if (null == dependencies) {
+        if (null == dependencies ) {
             XmlTag dependenciesTag = factory.createTagFromText("<dependencies></dependencies>");
             list.forEach(d -> dependenciesTag.addSubTag(getTag(d, factory), false));
             System.out.println("dependencies = " + dependenciesTag.toString());
@@ -75,7 +76,7 @@ public class MavenDependenceManager implements DependenceManager {
         String tagString = TAG_PATTERN.replace("{tag}", tag).replace("{value}", value);
         if (valueTag == null) {
             WriteCommandAction.writeCommandAction(project, pom).run(() -> current.addSubTag(factory.createTagFromText(tagString), false));
-        } else if (value.equals(valueTag.getText())) {
+        } else if (!value.equals(valueTag.getValue().getText())) {
             WriteCommandAction.writeCommandAction(project, pom).run(() -> valueTag.replace(factory.createTagFromText(tagString)));
         }
     }
@@ -84,7 +85,7 @@ public class MavenDependenceManager implements DependenceManager {
     public List<MissMatchDependence> checkDependencies(List<Dependence> list, Project project) {
         XmlFile pom = getPomFile(project);
         XmlTag dependencies = pom.getDocument().getRootTag().findFirstSubTag("dependencies");
-        if (dependencies == null) {
+        if (dependencies == null || ArrayUtil.isEmpty(dependencies.findSubTags("dependency"))) {
             return list.stream().map(dependence -> {
                 MissMatchDependence missMatchDependence = new MissMatchDependence();
                 missMatchDependence.setMissed(true);
@@ -101,9 +102,9 @@ public class MavenDependenceManager implements DependenceManager {
                         String scope = tag.getSubTagText(SCOPE);
                         String version = tag.getSubTagText(VERSION);
                         missMatchDependence.setScope(scope);
-                        missMatchDependence.setScopeMismatch(dependence.getScope().equals(scope));
+                        missMatchDependence.setScopeMismatch(!dependence.getScope().equals(scope));
                         missMatchDependence.setVersion(version);
-                        missMatchDependence.setVersionMismatch(dependence.getVersion().equals(version));
+                        missMatchDependence.setVersionMismatch(!dependence.getVersion().equals(version));
                         return missMatchDependence;
                     }).collect(Collectors.toList());
         }

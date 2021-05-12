@@ -1,0 +1,17 @@
+
+s
+Csrc/main/java/com/flyingwillow/utt/services/ProjectInfoService.java,c/5/c5211cbdf8a1583534d41965687dab8d9be5cf14
+r
+Bsrc/main/java/com/flyingwillow/utt/domain/MissMatchDependence.java,5/1/511c44c5d481a76d98e0fccb12bd3d851cb490a7
+w
+Gsrc/main/java/com/flyingwillow/utt/action/UttDependenceCheckAction.java,c/d/cd3ecd43e9a756780a164bf2709c52c3c3a54c41
+w
+Gsrc/main/java/com/flyingwillow/utt/listeners/ProjectUttInitializer.java,3/1/31ac31c59973aba77dca074cb6e06af6c30ac7e1
+p
+@src/main/java/com/flyingwillow/utt/action/UttGenerateAction.java,2/6/264f46707c784aea5e2f3c423d08178fefbcbc2f
+w
+Gsrc/main/java/com/flyingwillow/utt/action/UttDependenceFixupAction.java,f/b/fb1b7080dd84a172c391143519f0a7ef34700a9d
+ƒ
+Ssrc/main/java/com/flyingwillow/utt/extensionpoint/dependence/DependenceManager.java,3/2/326eaccf9c1979dabd854ac050d747ad18e70f1e
+ƒ
+Ssrc/main/java/com/flyingwillow/utt/extension/dependence/MavenDependenceManager.java,e/7/e7f1eaea2209b3bbe16265bd2d91ca4822b574ba

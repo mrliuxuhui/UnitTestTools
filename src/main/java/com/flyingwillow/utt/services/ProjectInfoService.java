@@ -4,10 +4,15 @@ import com.flyingwillow.utt.domain.MissMatchDependence;
 import com.flyingwillow.utt.domain.ProjectInfo;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceManager;
+import com.intellij.notification.*;
+import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import org.apache.commons.collections.CollectionUtils;
+import org.jetbrains.annotations.NotNull;
 
+import javax.swing.event.HyperlinkEvent;
 import java.util.List;
 
 @Service
@@ -60,10 +65,21 @@ public final class ProjectInfoService {
         System.out.println(this.dependenceBuilder.getDependenceList());
 
         List<MissMatchDependence> missMatchDependencies = getMissedDependencies(project);
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n");
-        missMatchDependencies.forEach(missMatchDependence -> sb.append(missMatchDependence.getStringMsg()).append("\n"));
-        System.out.println("mismatch = " + sb.toString());
+
+        if(!CollectionUtils.isEmpty(missMatchDependencies)){
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n");
+            missMatchDependencies.forEach(missMatchDependence -> sb.append(missMatchDependence.getStringMsg()).append("\n"));
+            System.out.println("mismatch = " + sb.toString());
+
+            Notification notification = NotificationGroupManager.getInstance().getNotificationGroup("Utt Notification Group")
+                    .createNotification("Missing Dependencies", sb.toString(), NotificationType.WARNING, (notification1, event) -> {
+
+            });
+            notification.addAction(ActionManager.getInstance().getAction("uttAction.fixupDependence"));
+
+            Notifications.Bus.notify(notification, project);
+        }
 
     }
 

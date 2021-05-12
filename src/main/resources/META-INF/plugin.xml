@@ -28,7 +28,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-<!--        <postStartupActivity implementation="com.flyingwillow.utt.listeners.ApplicationInitializer" />-->
+        <notificationGroup displayType="BALLOON" id="Utt Notification Group" />
     </extensions>
 
     <extensions defaultExtensionNs="com.flyingwillow.utt">
@@ -38,10 +38,13 @@
 
     <actions>
         <!-- Add your actions here -->
-        <group id="utt.actionGroup" class="com.flyingwillow.utt.action.UttActionGroup" text="Unit Test Tools" popup="true">
+        <group id="uttActionGroup" class="com.flyingwillow.utt.action.UttActionGroup" text="Unit Test Tools" popup="true">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
-
-            <action id="utt.action.create" class="com.flyingwillow.utt.action.UttGenerateAction" text="generate ut" description="创建单元测试">
+            <action id="uttAction.checkDependence" class="com.flyingwillow.utt.action.UttDependenceCheckAction" text="check dependencies" description="检查依赖包">
+            </action>
+            <action id="uttAction.fixupDependence" class="com.flyingwillow.utt.action.UttDependenceFixupAction" text="fixup dependencies" description="修复依赖包">
+            </action>
+            <action id="uttAction.create" class="com.flyingwillow.utt.action.UttGenerateAction" text="generate ut" description="创建单元测试">
             </action>
         </group>
     </actions>

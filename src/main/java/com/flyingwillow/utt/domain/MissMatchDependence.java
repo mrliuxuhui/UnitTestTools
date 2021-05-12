@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class MissMatchDependence {
     private Dependence target;
-    private Boolean missed;
-    private Boolean versionMismatch;
-    private Boolean scopeMismatch;
+    private Boolean missed = false;
+    private Boolean versionMismatch = false;
+    private Boolean scopeMismatch = false;
     private String version;
     private String scope;
 

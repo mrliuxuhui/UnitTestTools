@@ -6,12 +6,12 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.components.ServiceManager;
 import org.jetbrains.annotations.NotNull;
 
-public class UttDependenceCheckAction extends AnAction {
+public class UttDependenceFixupAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
 
         // check dependencies
         ProjectInfoService projectInfoService = ServiceManager.getService(ProjectInfoService.class);
-        projectInfoService.checkDependencies(anActionEvent.getProject());
+        projectInfoService.setupDependencies(anActionEvent.getProject());
     }
 }
