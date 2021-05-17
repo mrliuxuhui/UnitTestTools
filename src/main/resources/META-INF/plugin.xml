@@ -18,22 +18,27 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensionPoints>
         <extensionPoint name="dependenceBuilder" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder" />
         <extensionPoint name="dependenceManager" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceManager" />
         <extensionPoint name="testClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
         <extensionPoint name="testMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
+        <extensionPoint name="methodAssociate" interface="com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate" />
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <notificationGroup displayType="BALLOON" id="Utt Notification Group" />
+
+        <codeInsight.lineMarkerProvider language="" implementationClass="com.flyingwillow.utt.provider.UttLineMakerProvider" />
     </extensions>
 
     <extensions defaultExtensionNs="com.flyingwillow.utt">
         <dependenceBuilder  implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
         <dependenceManager  implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
+        <methodAssociate implementation="com.flyingwillow.utt.extension.provider.JavaMethodAssociate" />
     </extensions>
 
     <actions>

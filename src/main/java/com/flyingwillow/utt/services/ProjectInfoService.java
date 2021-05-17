@@ -4,6 +4,9 @@ import com.flyingwillow.utt.domain.MissMatchDependence;
 import com.flyingwillow.utt.domain.ProjectInfo;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceManager;
+import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
+import com.flyingwillow.utt.provider.UttLineMakerProvider;
+import com.intellij.lang.Language;
 import com.intellij.notification.*;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.components.Service;
@@ -13,7 +16,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.event.HyperlinkEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public final class ProjectInfoService {
@@ -36,6 +41,11 @@ public final class ProjectInfoService {
      * project default Dependence builder
      */
     private DependenceBuilder dependenceBuilder;
+
+    /**
+     *  associate providers
+     * */
+    private final Map<Language, UttMethodAssociate> methodAssociateHashMap = new HashMap<>(10);
 
     public Project getProject() {
         return this.project;
@@ -94,9 +104,18 @@ public final class ProjectInfoService {
         // setup dependence manager/ code manager
         setupManagers();
 
+        // set providers
+        setupProviders();
+
         // check dependencies
         checkDependencies(project);
 
+    }
+
+    private void setupProviders() {
+        List<UttMethodAssociate> associates = UttMethodAssociate.EXTENSION_POINT_NAME.getExtensionList();
+        associates.forEach(associate -> methodAssociateHashMap.put(associate.getLanguage(), associate));
+        System.out.println("methodAssociate:" + methodAssociateHashMap.keySet());
     }
 
     private void setupManagers() {
@@ -111,5 +130,9 @@ public final class ProjectInfoService {
 
     public void setupDependencies(Project project) {
         this.dependenceManager.setupIfNecessary(dependenceBuilder.getDependenceList(), project);
+    }
+
+    public UttMethodAssociate getMethodAssociate(Language language){
+        return methodAssociateHashMap.get(language);
     }
 }
