@@ -23,7 +23,6 @@ public class JavaMethodAssociate implements UttMethodAssociate {
 
     @Override
     public boolean shouldShowMarker(@NotNull PsiElement element) {
-        System.out.println("element = " + element);
         if (element instanceof PsiIdentifier && element.getParent() instanceof PsiMethod) {
             PsiMethod method = (PsiMethod) element.getParent();
             final PsiModifierList modifierList = method.getModifierList();

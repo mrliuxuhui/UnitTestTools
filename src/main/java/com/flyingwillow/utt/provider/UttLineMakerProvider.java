@@ -29,7 +29,6 @@ public class UttLineMakerProvider extends RelatedItemLineMarkerProvider {
         }
 
         if (methodAssociate.shouldShowMarker(element)) {
-            System.out.println("element = " + element + ", result = " + result);
             final NavigationGutterIconBuilder<PsiElement> jumpToTestMethod = NavigationGutterIconBuilder.create(methodAssociate.getIcon(element))
                     .setTooltipTitle("Jump to Test Method")
                     .setTargets(Collections.emptyList());
