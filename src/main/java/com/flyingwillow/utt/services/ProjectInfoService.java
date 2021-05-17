@@ -5,17 +5,17 @@ import com.flyingwillow.utt.domain.ProjectInfo;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceManager;
 import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
-import com.flyingwillow.utt.provider.UttLineMakerProvider;
 import com.intellij.lang.Language;
-import com.intellij.notification.*;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.collections.CollectionUtils;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.event.HyperlinkEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +43,8 @@ public final class ProjectInfoService {
     private DependenceBuilder dependenceBuilder;
 
     /**
-     *  associate providers
-     * */
+     * associate providers
+     */
     private final Map<Language, UttMethodAssociate> methodAssociateHashMap = new HashMap<>(10);
 
     public Project getProject() {
@@ -76,7 +76,7 @@ public final class ProjectInfoService {
 
         List<MissMatchDependence> missMatchDependencies = getMissedDependencies(project);
 
-        if(!CollectionUtils.isEmpty(missMatchDependencies)){
+        if (!CollectionUtils.isEmpty(missMatchDependencies)) {
             StringBuilder sb = new StringBuilder();
             sb.append("\n");
             missMatchDependencies.forEach(missMatchDependence -> sb.append(missMatchDependence.getStringMsg()).append("\n"));
@@ -85,7 +85,7 @@ public final class ProjectInfoService {
             Notification notification = NotificationGroupManager.getInstance().getNotificationGroup("Utt Notification Group")
                     .createNotification("Missing Dependencies", sb.toString(), NotificationType.WARNING, (notification1, event) -> {
 
-            });
+                    });
             notification.addAction(ActionManager.getInstance().getAction("uttAction.fixupDependence"));
 
             Notifications.Bus.notify(notification, project);
@@ -132,7 +132,7 @@ public final class ProjectInfoService {
         this.dependenceManager.setupIfNecessary(dependenceBuilder.getDependenceList(), project);
     }
 
-    public UttMethodAssociate getMethodAssociate(Language language){
+    public UttMethodAssociate getMethodAssociate(Language language) {
         return methodAssociateHashMap.get(language);
     }
 }
