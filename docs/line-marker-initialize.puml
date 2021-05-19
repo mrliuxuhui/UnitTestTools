@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 'line marker initializing'
+
+autonumber
+
+IDEA --> project : project opened
+project --> ProjectUttInitializer : initialize project info
+ProjectUttInitializer --> ProjectInfoService : initialize project info
+ProjectInfoService --> ProjectInfoService : setup managers
+ProjectInfoService --> UttLineMarkerProvider : setup line marker provider
+UttLineMarkerProvider --> UttLineMarkerProvider : initialize Method association map key-Language
+UttLineMarkerProvider --> ProjectInfoService
+
+ProjectInfoService --> UttCodeManageService : initialize code checker and so on
+UttCodeManageService --> UttCodeManageService : initialize code checker map key:Language-TestFramework
+UttCodeManageService --> ProjectInfoService
+
+ProjectInfoService --> DependenceManager : check dependencies
+
+DependenceManager --> ProjectInfoService
+ProjectInfoService --> project
+
+@enduml

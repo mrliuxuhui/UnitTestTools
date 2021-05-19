@@ -3,8 +3,6 @@ r
 Bsrc/main/java/com/flyingwillow/utt/domain/MissMatchDependence.java,5/1/511c44c5d481a76d98e0fccb12bd3d851cb490a7
 w
 Gsrc/main/java/com/flyingwillow/utt/action/UttDependenceCheckAction.java,c/d/cd3ecd43e9a756780a164bf2709c52c3c3a54c41
-w
-Gsrc/main/java/com/flyingwillow/utt/listeners/ProjectUttInitializer.java,3/1/31ac31c59973aba77dca074cb6e06af6c30ac7e1
 p
 @src/main/java/com/flyingwillow/utt/action/UttGenerateAction.java,2/6/264f46707c784aea5e2f3c423d08178fefbcbc2f
 w

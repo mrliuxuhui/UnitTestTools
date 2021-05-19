@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title "how to show line marker Language: JAVA"
+autonumber
+
+IDEA --> classFile : open class
+IDEA --> codeInsight
+codeInsight --> UttLineMakerProvider : collectNavigationMarkers
+UttLineMakerProvider --> JAVAMethodAssociationBuilder : check should show marker
+UttLineMakerProvider --> JAVAMethodAssociationBuilder : get associated methods
+JAVAMethodAssociationBuilder --> JavaUttFormatChecker : check has valid when phase
+JavaUttFormatChecker --> JAVAMethodAssociationBuilder : collect valid test methods
+JAVAMethodAssociationBuilder --> UttLineMakerProvider
+UttLineMakerProvider --> UttLineMakerProvider : build line marker
+UttLineMakerProvider --> IDEA
+
+@enduml
