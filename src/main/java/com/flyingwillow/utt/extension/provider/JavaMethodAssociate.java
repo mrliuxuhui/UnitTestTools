@@ -1,9 +1,11 @@
 package com.flyingwillow.utt.extension.provider;
 
 import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
+import com.flyingwillow.utt.services.UttMethodAssociationService;
 import com.intellij.icons.AllIcons;
 import com.intellij.lang.Language;
 import com.intellij.lang.StdLanguages;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
@@ -12,7 +14,6 @@ import com.intellij.psi.PsiModifierList;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.util.Collections;
 import java.util.List;
 
 public class JavaMethodAssociate implements UttMethodAssociate {
@@ -38,6 +39,7 @@ public class JavaMethodAssociate implements UttMethodAssociate {
 
     @Override
     public List<PsiElement> getAssociate(@NotNull PsiElement element) {
-        return Collections.emptyList();
+        UttMethodAssociationService service = ServiceManager.getService(UttMethodAssociationService.class);
+        return service.getAssociations(element);
     }
 }

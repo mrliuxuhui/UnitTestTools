@@ -4,9 +4,9 @@
 autonumber
 
 IDEA --> UTTPlugin : startup
-UTTPlugin --> ApplicationInitializer : collect all endpoints implementations
-ApplicationInitializer --> ApplicationService : create endpoint object
-ApplicationService --> ApplicationService : save the instances
-ApplicationService --> UTTPlugin
+UTTPlugin --> ProjectUttInitializer : collect all endpoints implementations
+ProjectUttInitializer --> ProjectInfoService : get endpoint object
+ProjectInfoService --> ProjectInfoService : save the instances
+ProjectInfoService --> UTTPlugin
 
 @enduml

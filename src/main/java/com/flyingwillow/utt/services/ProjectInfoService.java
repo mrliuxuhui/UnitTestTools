@@ -12,6 +12,7 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.components.Service;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.collections.CollectionUtils;
@@ -41,6 +42,16 @@ public final class ProjectInfoService {
      * project default Dependence builder
      */
     private DependenceBuilder dependenceBuilder;
+
+    /**
+     *  utt association
+     * */
+    private UttMethodAssociationService uttMethodAssociationService;
+
+    /**
+     *  utt code manage service
+     * */
+    private UttCodeManageService uttCodeManageService;
 
     /**
      * associate providers
@@ -107,9 +118,26 @@ public final class ProjectInfoService {
         // set providers
         setupProviders();
 
+        //
+        setupAssociator(project);
+
+        //
+        setupCodeManager();
+
         // check dependencies
         checkDependencies(project);
 
+    }
+
+    private void setupCodeManager() {
+        this.uttCodeManageService = ServiceManager.getService(UttCodeManageService.class);
+        this.uttCodeManageService.initialize();
+    }
+
+    private void setupAssociator(Project project) {
+        UttMethodAssociationService service = ServiceManager.getService(UttMethodAssociationService.class);
+        this.uttMethodAssociationService = service;
+        service.initialize(project);
     }
 
     private void setupProviders() {

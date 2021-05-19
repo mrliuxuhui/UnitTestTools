@@ -3,7 +3,7 @@
 
 autonumber
 
-IDEA --> EVENT_HUB : 工程打开事件
+IDEA --> EVENT_HUB : open project
 EVENT_HUB --> ProjectUttInitializer : call projectOpened
 ProjectUttInitializer --> ProjectInfoService : call collecting project info
 activate ProjectInfoService

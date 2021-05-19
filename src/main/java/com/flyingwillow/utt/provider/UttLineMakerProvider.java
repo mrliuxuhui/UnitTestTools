@@ -7,12 +7,9 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.PsiElement;
-import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class UttLineMakerProvider extends RelatedItemLineMarkerProvider {
 
@@ -31,11 +28,7 @@ public class UttLineMakerProvider extends RelatedItemLineMarkerProvider {
         if (methodAssociate.shouldShowMarker(element)) {
             final NavigationGutterIconBuilder<PsiElement> jumpToTestMethod = NavigationGutterIconBuilder.create(methodAssociate.getIcon(element))
                     .setTooltipTitle("Jump to Test Method")
-                    .setTargets(Collections.emptyList());
-            final List<PsiElement> associates = methodAssociate.getAssociate(element);
-            if (CollectionUtils.isNotEmpty(associates)) {
-                jumpToTestMethod.setTargets();
-            }
+                    .setTargets(methodAssociate.getAssociate(element));
             result.add(jumpToTestMethod.createLineMarkerInfo(element));
         }
 

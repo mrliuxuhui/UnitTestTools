@@ -26,6 +26,8 @@
         <extensionPoint name="testClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
         <extensionPoint name="testMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
         <extensionPoint name="methodAssociate" interface="com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate" />
+        <extensionPoint name="methodAssociationBuilder" interface="com.flyingwillow.utt.extensionpoint.cache.MethodAssociationBuilder" />
+        <extensionPoint name="uttFormatChecker" interface="com.flyingwillow.utt.extensionpoint.code.UttFormatChecker" />
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -39,6 +41,8 @@
         <dependenceBuilder  implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
         <dependenceManager  implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
         <methodAssociate implementation="com.flyingwillow.utt.extension.provider.JavaMethodAssociate" />
+        <methodAssociationBuilder implementation="com.flyingwillow.utt.extension.cache.JavaMethodAssociationBuilder" />
+        <uttFormatChecker implementation="com.flyingwillow.utt.extension.code.JavaUttFormatChecker" />
     </extensions>
 
     <actions>
