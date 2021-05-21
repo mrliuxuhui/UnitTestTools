@@ -14,6 +14,7 @@ import com.intellij.psi.PsiModifierList;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.Collections;
 import java.util.List;
 
 public class JavaMethodAssociate implements UttMethodAssociate {
@@ -39,7 +40,11 @@ public class JavaMethodAssociate implements UttMethodAssociate {
 
     @Override
     public List<PsiElement> getAssociate(@NotNull PsiElement element) {
-        UttMethodAssociationService service = ServiceManager.getService(UttMethodAssociationService.class);
-        return service.getAssociations(element);
+        if(element instanceof PsiIdentifier && element.getParent() instanceof PsiMethod){
+            UttMethodAssociationService service = ServiceManager.getService(UttMethodAssociationService.class);
+            return service.getAssociations(element);
+        }else {
+            return Collections.emptyList();
+        }
     }
 }
