@@ -4,25 +4,20 @@ import com.flyingwillow.utt.domain.MissMatchDependence;
 import com.flyingwillow.utt.domain.ProjectInfo;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder;
 import com.flyingwillow.utt.extensionpoint.dependence.DependenceManager;
-import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
-import com.intellij.lang.Language;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.components.Service;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public final class ProjectInfoService {
+public final class ProjectInfoService implements UttBaseService {
 
     private final Logger logger = Logger.getInstance(ProjectInfoService.class);
 
@@ -42,21 +37,6 @@ public final class ProjectInfoService {
      * project default Dependence builder
      */
     private DependenceBuilder dependenceBuilder;
-
-    /**
-     *  utt association
-     * */
-    private UttMethodAssociationService uttMethodAssociationService;
-
-    /**
-     *  utt code manage service
-     * */
-    private UttCodeManageService uttCodeManageService;
-
-    /**
-     * associate providers
-     */
-    private final Map<Language, UttMethodAssociate> methodAssociateHashMap = new HashMap<>(10);
 
     public Project getProject() {
         return this.project;
@@ -107,7 +87,7 @@ public final class ProjectInfoService {
     /**
      * initializing
      */
-    public void initialize(Project project) {
+    private void initialize(Project project) {
         this.project = project;
         // collect project info
         collectProjectInfo(project);
@@ -115,35 +95,9 @@ public final class ProjectInfoService {
         // setup dependence manager/ code manager
         setupManagers();
 
-        // set providers
-        setupProviders();
-
-        //
-        setupAssociator(project);
-
-        //
-        setupCodeManager();
-
         // check dependencies
         checkDependencies(project);
 
-    }
-
-    private void setupCodeManager() {
-        this.uttCodeManageService = ServiceManager.getService(UttCodeManageService.class);
-        this.uttCodeManageService.initialize();
-    }
-
-    private void setupAssociator(Project project) {
-        UttMethodAssociationService service = ServiceManager.getService(UttMethodAssociationService.class);
-        this.uttMethodAssociationService = service;
-        service.initialize(project);
-    }
-
-    private void setupProviders() {
-        List<UttMethodAssociate> associates = UttMethodAssociate.EXTENSION_POINT_NAME.getExtensionList();
-        associates.forEach(associate -> methodAssociateHashMap.put(associate.getLanguage(), associate));
-        System.out.println("methodAssociate:" + methodAssociateHashMap.keySet());
     }
 
     private void setupManagers() {
@@ -160,7 +114,13 @@ public final class ProjectInfoService {
         this.dependenceManager.setupIfNecessary(dependenceBuilder.getDependenceList(), project);
     }
 
-    public UttMethodAssociate getMethodAssociate(Language language) {
-        return methodAssociateHashMap.get(language);
+    @Override
+    public void init(Project project) {
+        initialize(project);
+    }
+
+    @Override
+    public int getOrder() {
+        return UttBaseService.HIGHEST_ORDER;
     }
 }

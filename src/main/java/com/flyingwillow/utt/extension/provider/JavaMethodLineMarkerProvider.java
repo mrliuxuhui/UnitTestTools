@@ -1,6 +1,6 @@
 package com.flyingwillow.utt.extension.provider;
 
-import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
+import com.flyingwillow.utt.extensionpoint.provider.UttMethodLineMarkerProvider;
 import com.flyingwillow.utt.services.UttMethodAssociationService;
 import com.intellij.icons.AllIcons;
 import com.intellij.lang.Language;
@@ -17,7 +17,7 @@ import javax.swing.*;
 import java.util.Collections;
 import java.util.List;
 
-public class JavaMethodAssociate implements UttMethodAssociate {
+public class JavaMethodLineMarkerProvider implements UttMethodLineMarkerProvider {
     @Override
     public Language getLanguage() {
         return StdLanguages.JAVA;

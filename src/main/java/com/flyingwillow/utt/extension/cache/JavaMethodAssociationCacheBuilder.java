@@ -1,6 +1,6 @@
 package com.flyingwillow.utt.extension.cache;
 
-import com.flyingwillow.utt.extensionpoint.cache.MethodAssociationBuilder;
+import com.flyingwillow.utt.extensionpoint.cache.MethodAssociationCacheBuilder;
 import com.flyingwillow.utt.services.UttCodeManageService;
 import com.intellij.lang.Language;
 import com.intellij.lang.StdLanguages;
@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class JavaMethodAssociationBuilder implements MethodAssociationBuilder {
+public class JavaMethodAssociationCacheBuilder implements MethodAssociationCacheBuilder {
     @Override
     public String getUnifiedKey(PsiElement element) {
         if(element instanceof PsiIdentifier && element.getParent() instanceof PsiMethod){

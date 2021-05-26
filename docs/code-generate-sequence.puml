@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 'utt generate sequence'
+
+autonumber
+
+UttGenerateAction --> UttCodeBuilderService : a file or a method
+UttCodeBuilderService --> UttGenerateAction
+
+alt "test file generate (java)"
+UttGenerateAction --> UttCodeBuilderService : build file
+UttCodeBuilderService --> TestClassBuilder
+
+else "test method generate (java)"
+UttGenerateAction --> UttCodeBuilderService : build method
+UttCodeBuilderService --> TestMethodBuilder
+end
+
+@enduml

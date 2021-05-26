@@ -1,7 +1,7 @@
 package com.flyingwillow.utt.provider;
 
-import com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate;
-import com.flyingwillow.utt.services.ProjectInfoService;
+import com.flyingwillow.utt.extensionpoint.provider.UttMethodLineMarkerProvider;
+import com.flyingwillow.utt.services.UttMethodAssociationService;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
@@ -17,18 +17,18 @@ public class UttLineMakerProvider extends RelatedItemLineMarkerProvider {
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
 
         //
-        final ProjectInfoService projectInfoService = ServiceManager.getService(ProjectInfoService.class);
-        final UttMethodAssociate methodAssociate = projectInfoService.getMethodAssociate(element.getLanguage());
+        final UttMethodAssociationService methodAssociationService = ServiceManager.getService(UttMethodAssociationService.class);
+        final UttMethodLineMarkerProvider methodLineMarkerProvider = methodAssociationService.getMethodAssociate(element.getLanguage());
 
         // fail fast
-        if (null == methodAssociate) {
+        if (null == methodLineMarkerProvider) {
             return;
         }
 
-        if (methodAssociate.shouldShowMarker(element)) {
-            final NavigationGutterIconBuilder<PsiElement> jumpToTestMethod = NavigationGutterIconBuilder.create(methodAssociate.getIcon(element))
+        if (methodLineMarkerProvider.shouldShowMarker(element)) {
+            final NavigationGutterIconBuilder<PsiElement> jumpToTestMethod = NavigationGutterIconBuilder.create(methodLineMarkerProvider.getIcon(element))
                     .setTooltipTitle("Jump to Test Method")
-                    .setTargets(methodAssociate.getAssociate(element));
+                    .setTargets(methodLineMarkerProvider.getAssociate(element));
             result.add(jumpToTestMethod.createLineMarkerInfo(element));
         }
 

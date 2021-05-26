@@ -1,5 +1,6 @@
 package com.flyingwillow.utt.extensionpoint.provider;
 
+import com.flyingwillow.utt.constant.ExtensionPoints;
 import com.intellij.lang.Language;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.psi.PsiElement;
@@ -8,32 +9,38 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.util.List;
 
-public interface UttMethodAssociate {
+/**
+ *
+ */
+public interface UttMethodLineMarkerProvider {
 
-    ExtensionPointName<UttMethodAssociate> EXTENSION_POINT_NAME = ExtensionPointName.create("com.flyingwillow.utt.methodAssociate");
+    ExtensionPointName<UttMethodLineMarkerProvider> EXTENSION_POINT_NAME = ExtensionPointName.create(ExtensionPoints.NS + "methodLineMarker");
 
     Language getLanguage();
 
     /**
-     *  whether or not test icon should be shown
-     *  1. file not exclude
-     *  2. an public method
-     *  3. having an associated test method
-     *  4. not static method
+     * whether or not test icon should be shown
+     * 1. file not exclude
+     * 2. an public method
+     * 3. having an associated test method
+     * 4. not static method
      *
-     * @param element*/
+     * @param element
+     */
     boolean shouldShowMarker(@NotNull PsiElement element);
 
     /**
-     *  which icon to be shown
+     * which icon to be shown
      *
-     * @return*/
+     * @return
+     */
     Icon getIcon(@NotNull PsiElement element);
 
     /**
      * location to be associated
      *
-     * @return*/
+     * @return
+     */
 
     List<PsiElement> getAssociate(@NotNull PsiElement element);
 }

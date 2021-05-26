@@ -23,10 +23,9 @@
     <extensionPoints>
         <extensionPoint name="dependenceBuilder" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceBuilder" />
         <extensionPoint name="dependenceManager" interface="com.flyingwillow.utt.extensionpoint.dependence.DependenceManager" />
-        <extensionPoint name="testClassBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestClassBuilder" />
-        <extensionPoint name="testMethodBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestMethodBuilder" />
-        <extensionPoint name="methodAssociate" interface="com.flyingwillow.utt.extensionpoint.provider.UttMethodAssociate" />
-        <extensionPoint name="methodAssociationBuilder" interface="com.flyingwillow.utt.extensionpoint.cache.MethodAssociationBuilder" />
+        <extensionPoint name="testCodeBuilder" interface="com.flyingwillow.utt.extensionpoint.code.TestCodeBuilder" />
+        <extensionPoint name="methodLineMarker" interface="com.flyingwillow.utt.extensionpoint.provider.UttMethodLineMarkerProvider" />
+        <extensionPoint name="methodAssociationCacheBuilder" interface="com.flyingwillow.utt.extensionpoint.cache.MethodAssociationCacheBuilder" />
         <extensionPoint name="uttFormatChecker" interface="com.flyingwillow.utt.extensionpoint.code.UttFormatChecker" />
     </extensionPoints>
 
@@ -40,8 +39,8 @@
     <extensions defaultExtensionNs="com.flyingwillow.utt">
         <dependenceBuilder  implementation="com.flyingwillow.utt.extension.dependence.SpringWebDependenceBuilder" />
         <dependenceManager  implementation="com.flyingwillow.utt.extension.dependence.MavenDependenceManager" />
-        <methodAssociate implementation="com.flyingwillow.utt.extension.provider.JavaMethodAssociate" />
-        <methodAssociationBuilder implementation="com.flyingwillow.utt.extension.cache.JavaMethodAssociationBuilder" />
+        <methodLineMarker implementation="com.flyingwillow.utt.extension.provider.JavaMethodLineMarkerProvider" />
+        <methodAssociationCacheBuilder implementation="com.flyingwillow.utt.extension.cache.JavaMethodAssociationCacheBuilder" />
         <uttFormatChecker implementation="com.flyingwillow.utt.extension.code.JavaUttFormatChecker" />
     </extensions>
 
